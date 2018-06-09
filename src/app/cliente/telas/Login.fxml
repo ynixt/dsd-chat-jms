@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="319.0" prefWidth="466.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.cliente.telas.LoginController">
+   <children>
+      <TextField id="txtLogin" fx:id="txtLogin" layoutX="151.0" layoutY="160.0" />
+      <Button id="btnEntrar" layoutX="308.0" layoutY="160.0" mnemonicParsing="false" onAction="#btnEntrarClick" text="Entrar" />
+   </children>
+</AnchorPane>
