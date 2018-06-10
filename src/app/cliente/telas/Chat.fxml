@@ -45,7 +45,7 @@
           <TableColumn id="t_msg" fx:id="t_msg" prefWidth="358.0" text="Msg" />
         </columns>
       </TableView>
-      <Text id="msg_enviado" fx:id="msg_enviado" fill="#d34040" layoutX="251.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mensagem enviada." />
+      <Text id="msg_enviado" fx:id="msg_enviado" fill="#d34040" layoutX="251.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
       <Button id="btn_att" fx:id="btn_att" layoutX="386.0" layoutY="274.0" mnemonicParsing="false" onAction="#attMsg" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: white;" text="Atualizar" textFill="STEELBLUE" />
    </children>
 </AnchorPane>
