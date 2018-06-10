@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  *
@@ -24,10 +25,8 @@ import javafx.stage.Stage;
 public class LoginController {
     
         @FXML private TextField txt_nick;
-        @FXML private PasswordField senha_cad;
         @FXML private Text msg_disponivel;
-        @FXML private Button btn_enviar;
-        @FXML private Text msg_login;
+     
     
     @FXML
        private void btnVerificarClick(ActionEvent event){
@@ -41,43 +40,33 @@ public class LoginController {
             if(verifica == true){
                 msg_disponivel.setText("Este nick já está em uso.");
             }else{
-                msg_disponivel.setText("Parabéns! Este agora é o seu nick.");
-                String senha = senha_cad.getText();
-                //atribuir nick, senha
-            }
-		
-       }
-       
-    @FXML
-       private void btnLogar(ActionEvent event) throws IOException{
-           
-            boolean verifica = true;
-            
-            String nick = this.txt_nick.getText();
-            String senha = senha_cad.getText();
-            
-            //conferir login
-             
-            if(verifica == true){
+                msg_disponivel.setText("Parabéns! Este agora é o seu nick.");       
+                //atribuir nick
+                
                 try {  
+                    
+                    Window janela =  txt_nick.getScene().getWindow();
+                    Stage anterior = (Stage)janela;
+                    anterior.close();
+                    
                     Stage stage = new Stage();
                     
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/app/cliente/telas/Chat.fxml"));
 			Scene scene = new Scene(root, 480, 600);
-
-                 
+                        
+                         stage.setMaxHeight(600);
+                         stage.setMaxWidth(480);
+                        
 			stage.setScene(scene);
 
 			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-                
-            }else{
-                msg_login.setText("Acesso negado.");
-                //atribuir nick, senha
             }
 		
        }
+       
+    
     
 }

@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 
 public class ChatController {
@@ -28,10 +29,24 @@ public class ChatController {
         @FXML private TableColumn<String,String> t_msg;
         
        
-       @FXML
-       private void btnEnviarClick(ActionEvent event){
+        @FXML
+        private void btnEnviarClick(ActionEvent event){
            
-            String msg = this.txt_msg.getText(); 
+            confere();
+		
+        }
+        @FXML
+        private void buttonPressed(KeyEvent e){
+            
+                if(e.getCode().toString().equals("ENTER"))
+                {
+                    confere();
+                }
+        }
+        
+       @FXML
+       private void confere(){
+           String msg = this.txt_msg.getText(); 
             
             if(msg.isEmpty()){
                 this.msg_enviado.setText("Mensagem em branco.");
@@ -47,7 +62,6 @@ public class ChatController {
                     this.msg_enviado.setText("Mensagem enviada para: " + destinatario + "!");
                 }
             }
-		
        }
        
        @FXML

@@ -26,14 +26,14 @@
             <Font name="Arial" size="14.0" />
          </font>
       </Text>
-      <TextArea id="txt_msg" fx:id="txt_msg" layoutX="24.0" layoutY="103.0" prefHeight="136.0" prefWidth="200.0" />
+      <TextArea id="txt_msg" fx:id="txt_msg" layoutX="24.0" layoutY="103.0" onKeyPressed="#buttonPressed" prefHeight="136.0" prefWidth="200.0" />
       <Text layoutX="313.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Digite o destinatário :">
          <font>
             <Font name="Arial" size="14.0" />
          </font>
       </Text>
-      <TextField id="txt_destinatario" fx:id="txt_destinatario" layoutX="304.0" layoutY="103.0" promptText="Opcional..." />
-      <Button id="btn_enviar" fx:id="btn_enviar" layoutX="343.0" layoutY="146.0" mnemonicParsing="false" onAction="#btnEnviarClick" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #3CB371;" text="Enviar" textFill="WHITE" />
+      <TextField id="txt_destinatario" fx:id="txt_destinatario" layoutX="304.0" layoutY="103.0" onKeyPressed="#buttonPressed" promptText="Opcional..." />
+      <Button id="btn_enviar" fx:id="btn_enviar" layoutX="343.0" layoutY="146.0" mnemonicParsing="false" onAction="#btnEnviarClick" onKeyPressed="#buttonPressed" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #3CB371;" text="Enviar" textFill="WHITE" />
       <Label layoutY="263.0" prefHeight="46.0" prefWidth="480.0" style="-fx-background-color: #4682B4;" text="                                Minhas Mensagens" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="18.0" />
