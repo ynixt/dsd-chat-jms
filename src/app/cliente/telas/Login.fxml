@@ -8,45 +8,70 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="480.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.cliente.telas.LoginController">
-   <children>
-      <Label prefHeight="46.0" prefWidth="480.0" style="-fx-background-color: #4682B4;" text="     Chat - Desenvolvimento de Sistemas Distribuídos" textFill="WHITE">
-         <font>
-            <Font name="Arial Bold" size="18.0" />
-         </font>
-      </Label>
-      <Text layoutX="127.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Escolha um Nick para entrar no chat :">
-         <font>
-            <Font name="Arial" size="14.0" />
-         </font>
-      </Text>
-      <TextField id="txt_nick" fx:id="txt_nick" layoutX="170.0" layoutY="244.0" promptText="Ex: John..." />
-      <Button id="btn_verificar" layoutX="211.0" layoutY="300.0" mnemonicParsing="false" onAction="#btnVerificarClick" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #4682B4;" text="Verificar" textFill="WHITE" />
-      <Text id="msg_disponivel" fx:id="msg_disponivel" fill="#d34040" layoutX="14.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="164.0" />
-      <Label layoutY="413.0" prefHeight="46.0" prefWidth="480.0" style="-fx-background-color: #4682B4;" text="                                      Integrantes :" textFill="WHITE">
-         <font>
-            <Font name="Arial Bold" size="18.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="37.0" fitWidth="79.0" layoutX="226.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../chat.png" />
-         </image>
-      </ImageView>
-      <Text layoutX="14.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gabriel Alves">
-         <font>
-            <Font name="Arial" size="18.0" />
-         </font>
-      </Text>
-      <Text layoutX="14.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gabriel Cavalcante">
-         <font>
-            <Font name="Arial" size="18.0" />
-         </font>
-      </Text>
-      <Text layoutX="14.0" layoutY="546.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lucas Fernando">
-         <font>
-            <Font name="Arial" size="18.0" />
-         </font>
-      </Text>
-   </children>
+<AnchorPane id="AnchorPane"
+	onKeyPressed="#onKeyPressed"
+	maxHeight="-Infinity"
+	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+	prefHeight="600.0" prefWidth="480.0"
+	style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="app.cliente.telas.LoginController">
+	<children>
+		<Label prefHeight="46.0" prefWidth="480.0"
+			style="-fx-background-color: #4682B4;"
+			text="    Chat - Desenvolvimento de Sistemas Distribuídos"
+			textFill="WHITE">
+			<font>
+				<Font name="Arial Bold" size="18.0" />
+			</font>
+		</Label>
+		<Text layoutX="127.0" layoutY="213.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="Escolha um Nick para entrar no chat :">
+			<font>
+				<Font name="Arial" size="14.0" />
+			</font>
+		</Text>
+		<TextField id="txt_nick" fx:id="txt_nick" layoutX="170.0"
+			layoutY="244.0" promptText="Ex: John..." />
+		<Button id="btn_verificar" layoutX="211.0" layoutY="300.0"
+			mnemonicParsing="false" onAction="#btnVerificarClick"
+			prefHeight="25.0" prefWidth="67.0"
+			style="-fx-background-color: #4682B4;" text="Verificar"
+			textFill="WHITE" />
+		<Text id="msg_disponivel" fx:id="msg_disponivel" fill="#d34040"
+			layoutX="14.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0"
+			wrappingWidth="164.0" />
+		<Label layoutY="413.0" prefHeight="46.0" prefWidth="480.0"
+			style="-fx-background-color: #4682B4;"
+			text="    Integrantes:"
+			textFill="WHITE">
+			<font>
+				<Font name="Arial Bold" size="18.0" />
+			</font>
+		</Label>
+		<ImageView fitHeight="37.0" fitWidth="79.0" layoutX="226.0"
+			layoutY="136.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../../../../../chat.png" />
+			</image>
+		</ImageView>
+		<Text layoutX="14.0" layoutY="490.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="Gabriel Alves">
+			<font>
+				<Font name="Arial" size="18.0" />
+			</font>
+		</Text>
+		<Text layoutX="14.0" layoutY="518.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="Gabriel Cavalcante">
+			<font>
+				<Font name="Arial" size="18.0" />
+			</font>
+		</Text>
+		<Text layoutX="14.0" layoutY="546.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="Lucas Fernando">
+			<font>
+				<Font name="Arial" size="18.0" />
+			</font>
+		</Text>
+	</children>
 </AnchorPane>

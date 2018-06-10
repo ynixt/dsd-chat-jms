@@ -76,7 +76,6 @@ public class ChatController {
 		t_msg.setCellValueFactory(new PropertyValueFactory<>("msg"));
 		
 		app.receberMensagem(m -> {
-			System.out.println("Executou uma função, sabia");
 			try {
 				String mensagem = m.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
 				

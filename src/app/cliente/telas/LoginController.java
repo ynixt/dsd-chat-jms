@@ -5,12 +5,15 @@
  */
 package app.cliente.telas;
 
+
 import app.ControladorMensagem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -27,6 +30,13 @@ public class LoginController {
 
 	@FXML
 	private Text msg_disponivel;
+	
+	@FXML
+	private void onKeyPressed(KeyEvent e) {
+		if (e.getCode().equals(KeyCode.ENTER)) {
+			btnVerificarClick(new ActionEvent());
+		}
+	}
 
 	@FXML
 	private void btnVerificarClick(ActionEvent event) {
@@ -40,16 +50,17 @@ public class LoginController {
 		if (verifica == true) {
 			msg_disponivel.setText("Este nick já está em uso.");
 		} else {
-			msg_disponivel.setText("Parabéns! Este agora é o seu nick.");
-			// TODO atribuir nick
-			showChatDialog(new ControladorMensagem(nick));
+			ControladorMensagem app = new ControladorMensagem(nick);
+			app.enviarMensagemDoServidor(nick, ControladorMensagem.TAG_MENSAGEM_LOGIN);
+
+			showChatDialog(app);
 		}
 	}
-	
+
 	private void showChatDialog(ControladorMensagem app) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/cliente/telas/Chat.fxml"));
-			
+
 			Window janela = txt_nick.getScene().getWindow();
 			Stage anterior = (Stage) janela;
 			anterior.close();
@@ -57,7 +68,7 @@ public class LoginController {
 			Stage stage = new Stage();
 
 			Scene scene = new Scene((AnchorPane) loader.load(), 480, 600);
-			
+
 			ChatController chat = loader.<ChatController>getController();
 			chat.initData(app);
 
