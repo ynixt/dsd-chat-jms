@@ -13,7 +13,7 @@ import app.MensagemRecebida;
 
 public class MainServidor {
 	private static Set<String> usuariosConectados = Collections.synchronizedSet(new HashSet<>());
-	
+
 	private static final Logger LOGGER = Logger.getLogger(MainServidor.class.toString());
 
 	public static void main(String[] args) throws InterruptedException {
@@ -49,6 +49,9 @@ public class MainServidor {
 					String texto = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
 					String idUsuarioDestino = null;
 
+					String idUsuarioRemetente = mensagem
+							.getStringProperty(ControladorMensagem.PROPRIEDADE_ID_REMETENTE);
+
 					try {
 						idUsuarioDestino = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_ID_DESTINO);
 					} catch (JMSException exception) {
@@ -56,7 +59,9 @@ public class MainServidor {
 
 					if (idUsuarioDestino == null) {
 						for (String cliente : usuariosConectados) {
-							controladorMensagem.enviarMensagemDoServidor(texto, cliente);
+							if (!cliente.equals(idUsuarioRemetente)) {
+								controladorMensagem.enviarMensagemDoServidor(texto, cliente);
+							}
 						}
 					} else {
 						controladorMensagem.enviarMensagemDoServidor(texto, idUsuarioDestino);
