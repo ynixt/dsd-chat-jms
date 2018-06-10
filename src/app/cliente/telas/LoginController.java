@@ -19,21 +19,40 @@ public class LoginController {
 
 		ControladorMensagem controlador = new ControladorMensagem(login);
 
-		controlador.enviarMensagem(login, ControladorMensagem.TAG_MENSAGEM_LOGIN, null);
+		controlador.enviarMensagemDoServidor(login, ControladorMensagem.TAG_MENSAGEM_LOGIN);
 
-		controlador.enviarMensagem("Este é um teste", ControladorMensagem.TAG_MENSAGEM_SERVIDOR, null);
-
-		controlador.receberMensagem(new MensagemRecebida() {
+		controlador.receberMensagemLogin(new MensagemRecebida() {
 
 			@Override
-			public void recebida(Message mensagem) {
-				try {
-					String usuarioQueEnviou = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_ID);
-					String texto = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
-					System.out.println("Mensagem recebida (" + usuarioQueEnviou + ")" + " " + texto);
-				} catch (JMSException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			public void recebida(Message mensagemStatusLogin) {
+				if (mensagemStatusLogin != null) {
+					try {
+						if (mensagemStatusLogin.getBooleanProperty(ControladorMensagem.PROPRIEDADE_LOGIN_STATUS)) {
+							controlador.enviarMensagem("Este é um teste", ControladorMensagem.TAG_MENSAGEM_SERVIDOR,
+									null);
+
+							controlador.receberMensagem(new MensagemRecebida() {
+
+								@Override
+								public void recebida(Message mensagem) {
+									try {
+										String usuarioQueEnviou = mensagem
+												.getStringProperty(ControladorMensagem.PROPRIEDADE_ID_REMETENTE);
+										String texto = mensagem
+												.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
+										System.out
+												.println("Mensagem recebida (" + usuarioQueEnviou + ")" + " " + texto);
+									} catch (JMSException e) {
+										e.printStackTrace();
+									}
+								}
+							});
+						} else {
+							// TODO login inválido
+						}
+					} catch (JMSException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});
