@@ -1,5 +1,7 @@
 package app;
 
+import java.util.logging.Logger;
+
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
@@ -27,6 +29,8 @@ public class ControladorMensagem {
 	public static final String RESERVADO_NICK = "#LOGIN";
 
 	private String idUSuario;
+	
+	private static final Logger LOGGER = Logger.getLogger(ControladorMensagem.class.toString()); 
 
 	public ControladorMensagem(String idUSuario) {
 		this.idUSuario = idUSuario;
@@ -79,6 +83,7 @@ public class ControladorMensagem {
 
 			@Override
 			public void run() {
+				LOGGER.info("Enviando mensagem do servidor.");
 				try {
 
 					ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(ENDERECO);
@@ -117,7 +122,7 @@ public class ControladorMensagem {
 	 * @param tag
 	 *            Tag usada para inserir a mensagem na fila
 	 * @param idUsuarioDestino
-	 *            Id do usuário que deve receber essa mensagem. Se for nulo o
+	 *            Id do usuï¿½rio que deve receber essa mensagem. Se for nulo o
 	 *            servidor vai enviar para todo mundo que estiver ativo
 	 */
 	public void enviarMensagem(final String texto, final String tag, final String idUsuarioDestino) {
@@ -126,6 +131,7 @@ public class ControladorMensagem {
 
 			@Override
 			public void run() {
+				LOGGER.info("Enviando mensagem");
 				try {
 
 					ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(ENDERECO);
@@ -165,6 +171,7 @@ public class ControladorMensagem {
 
 			@Override
 			public void run() {
+				LOGGER.info("Recebendo mensagem.");
 				try {
 
 					ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(ENDERECO);

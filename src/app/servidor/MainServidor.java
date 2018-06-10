@@ -3,6 +3,7 @@ package app.servidor;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -12,6 +13,8 @@ import app.MensagemRecebida;
 
 public class MainServidor {
 	private static Set<String> usuariosConectados = Collections.synchronizedSet(new HashSet<>());
+	
+	private static final Logger LOGGER = Logger.getLogger(MainServidor.class.toString());
 
 	public static void main(String[] args) throws InterruptedException {
 		ControladorMensagem controladorLogin = new ControladorMensagem(ControladorMensagem.TAG_MENSAGEM_LOGIN);
@@ -21,6 +24,7 @@ public class MainServidor {
 
 			@Override
 			public void recebida(Message mensagem) {
+				LOGGER.info("Servidor recebeu mensagem de login");
 				try {
 					String idUsuario = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
 
@@ -40,6 +44,7 @@ public class MainServidor {
 
 			@Override
 			public void recebida(Message mensagem) {
+				LOGGER.info("Servidor recebeu mensagem");
 				try {
 					String texto = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
 					String idUsuarioDestino = null;
