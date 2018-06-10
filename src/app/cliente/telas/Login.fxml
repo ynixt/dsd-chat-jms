@@ -1,12 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="319.0" prefWidth="466.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.cliente.telas.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="480.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.cliente.telas.LoginController">
    <children>
-      <TextField id="txtLogin" fx:id="txtLogin" layoutX="151.0" layoutY="160.0" />
-      <Button id="btnEntrar" layoutX="308.0" layoutY="160.0" mnemonicParsing="false" onAction="#btnEntrarClick" text="Entrar" />
+      <Label prefHeight="46.0" prefWidth="480.0" style="-fx-background-color: #4682B4;" text="     Chat - Desenvolvimento de Sistemas Distribuídos" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <Text layoutX="123.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Escolha um Nick para entrar no chat :">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Text>
+      <TextField id="txt_nick" fx:id="txt_nick" layoutX="166.0" layoutY="84.0" promptText="Ex: John..." />
+      <Button id="btn_verificar" layoutX="207.0" layoutY="176.0" mnemonicParsing="false" onAction="#btnVerificarClick" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #4682B4;" text="Verificar" textFill="WHITE" />
+      <Text layoutX="220.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha :">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Text>
+      <PasswordField id="senha_cad" fx:id="senha_cad" layoutX="166.0" layoutY="141.0" />
+      <Text id="msg_disponivel" fx:id="msg_disponivel" fill="#d34040" layoutX="26.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Label layoutY="243.0" prefHeight="46.0" prefWidth="480.0" style="-fx-background-color: #4682B4;" text="                            Já possui um cadastro?" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <Text layoutX="223.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nick :">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Text>
+      <TextField id="txt_login" fx:id="txt_login" layoutX="166.0" layoutY="329.0" promptText="Ex: John..." />
+      <Text layoutX="220.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha :">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Text>
+      <PasswordField id="senha_log" fx:id="senha_log" layoutX="166.0" layoutY="399.0" />
+      <Button id="btn_logar" fx:id="btn_logar" layoutX="207.0" layoutY="443.0" mnemonicParsing="false" onAction="#btnLogar" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #4682B4;" text="Logar" textFill="WHITE" />
+      <ImageView fitHeight="37.0" fitWidth="79.0" layoutX="226.0" layoutY="488.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../chat.png" />
+         </image>
+      </ImageView>
+      <Text id="msg_login" fx:id="msg_login" fill="#d34040" layoutX="14.0" layoutY="503.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>
