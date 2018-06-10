@@ -18,6 +18,7 @@ public class MainServidor {
 
 	public static void main(String[] args) throws InterruptedException {
 		ControladorMensagem controladorLogin = new ControladorMensagem(ControladorMensagem.TAG_MENSAGEM_LOGIN);
+		ControladorMensagem controladorLogout = new ControladorMensagem(ControladorMensagem.TAG_MENSAGEM_LOGOUT);
 		ControladorMensagem controladorMensagem = new ControladorMensagem(ControladorMensagem.TAG_MENSAGEM_SERVIDOR);
 
 		controladorLogin.receberMensagem(new MensagemRecebida() {
@@ -34,6 +35,21 @@ public class MainServidor {
 						controladorLogin.enviarMensagemLoginStatus(idUsuario, true);
 						usuariosConectados.add(idUsuario);
 					}
+				} catch (JMSException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		controladorLogout.receberMensagem(new MensagemRecebida() {
+
+			@Override
+			public void recebida(Message mensagem) {
+				LOGGER.info("Servidor recebeu mensagem de logout");
+				try {
+					String idUsuario = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
+
+					usuariosConectados.remove(idUsuario);
 				} catch (JMSException e) {
 					e.printStackTrace();
 				}

@@ -20,6 +20,7 @@ public class ControladorMensagem {
 	public static final String TAG_MENSAGEM_SERVIDOR = "servidor";
 	public static final String TAG_MENSAGEM_LOGIN = "login";
 	public static final String TAG_MENSAGEM_GLOBAL = "global";
+	public static final String TAG_MENSAGEM_LOGOUT = "logout";
 
 	public static final String PROPRIEDADE_TEXTO = "texto";
 	public static final String PROPRIEDADE_ID_DESTINO = "id_destino";
@@ -29,8 +30,8 @@ public class ControladorMensagem {
 	public static final String RESERVADO_NICK = "#LOGIN";
 
 	private String idUSuario;
-	
-	private static final Logger LOGGER = Logger.getLogger(ControladorMensagem.class.toString()); 
+
+	private static final Logger LOGGER = Logger.getLogger(ControladorMensagem.class.toString());
 
 	public ControladorMensagem(String idUSuario) {
 		this.idUSuario = idUSuario;
