@@ -16,39 +16,43 @@ public class MainServidor {
 		ControladorMensagem controladorLogin = new ControladorMensagem(ControladorMensagem.TAG_MENSAGEM_LOGIN);
 		ControladorMensagem controladorMensagem = new ControladorMensagem(ControladorMensagem.TAG_MENSAGEM_SERVIDOR);
 
-		
-			controladorLogin.receberMensagem(new MensagemRecebida() {
+		controladorLogin.receberMensagem(new MensagemRecebida() {
 
-				@Override
-				public void recebida(Message mensagem) {
-					try {
-						String texto = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
-						usuariosConectados.add(texto);
-					} catch (JMSException e) {
-						e.printStackTrace();
-					}
+			@Override
+			public void recebida(Message mensagem) {
+				try {
+					String texto = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
+					usuariosConectados.add(texto);
+				} catch (JMSException e) {
+					e.printStackTrace();
 				}
-			});
-			
-			controladorMensagem.receberMensagem(new MensagemRecebida() {
+			}
+		});
 
-				@Override
-				public void recebida(Message mensagem) {
+		controladorMensagem.receberMensagem(new MensagemRecebida() {
+
+			@Override
+			public void recebida(Message mensagem) {
+				try {
+					String texto = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
+					String idUsuarioDestino = null;
+
 					try {
-						String texto = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
-						
-						// TODO VERIFICAR SE MENSAGEM REALMENTE É PRA TODO MUNDO
-						
-						for(String cliente : usuariosConectados) {
-							controladorMensagem.enviarMensagem(texto, cliente);
+						idUsuarioDestino = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_ID_DESTINO);
+					} catch (JMSException exception) {
+					}
+
+					if (idUsuarioDestino == null) {
+						for (String cliente : usuariosConectados) {
+							controladorMensagem.enviarMensagem(texto, cliente, null);
 						}
-					} catch (JMSException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					} else {
+						controladorMensagem.enviarMensagem(texto, idUsuarioDestino, null);
 					}
+				} catch (JMSException e) {
 				}
-			});
-			
-		
+			}
+		});
+
 	}
 }

@@ -3,7 +3,6 @@ package app;
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
-import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
@@ -22,6 +21,7 @@ public class ControladorMensagem {
 	public static final String TAG_MENSAGEM_GLOBAL = "global";
 
 	public static final String PROPRIEDADE_TEXTO = "texto";
+	public static final String PROPRIEDADE_ID_DESTINO = "id_destino";
 	public static final String PROPRIEDADE_ID = "id";
 
 	private String idUSuario;
@@ -30,9 +30,21 @@ public class ControladorMensagem {
 		this.idUSuario = idUSuario;
 	}
 
-	public void enviarMensagem(final String texto, final String tag) {
+	/**
+	 * Envia uma mensagem
+	 * 
+	 * @param texto
+	 *            Texto da mensagem
+	 * @param tag
+	 *            Tag usada para inserir a mensagem na fila
+	 * @param idUsuarioDestino
+	 *            Parametro usado exclusivamente pelo cliente para informar que esta
+	 *            mensagem é apenas para um cliente
+	 */
+	public void enviarMensagem(final String texto, final String tag, final String idUsuarioDestino) {
 		new Thread(new Runnable() {
 
+			@Override
 			public void run() {
 				try {
 
@@ -49,8 +61,12 @@ public class ControladorMensagem {
 					producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 					Message mensagem = session.createMessage();
-					mensagem.setStringProperty(PROPRIEDADE_ID, idUSuario);
+					mensagem.setStringProperty(PROPRIEDADE_ID, ControladorMensagem.this.idUSuario);
 					mensagem.setStringProperty(PROPRIEDADE_TEXTO, texto);
+
+					if (idUsuarioDestino != null) {
+						mensagem.setStringProperty(PROPRIEDADE_ID_DESTINO, idUsuarioDestino);
+					}
 
 					producer.send(mensagem);
 
@@ -67,6 +83,7 @@ public class ControladorMensagem {
 	public void receberMensagem(final MensagemRecebida event) {
 		new Thread(new Runnable() {
 
+			@Override
 			public void run() {
 				try {
 
@@ -77,7 +94,7 @@ public class ControladorMensagem {
 
 					Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-					Destination destination = session.createQueue(idUSuario);
+					Destination destination = session.createQueue(ControladorMensagem.this.idUSuario);
 
 					MessageConsumer consumer = session.createConsumer(destination);
 

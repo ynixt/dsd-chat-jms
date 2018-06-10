@@ -15,13 +15,13 @@ public class LoginController {
 
 	@FXML
 	private void btnEntrarClick(ActionEvent event) {
-		String login = txtLogin.getText();
+		String login = this.txtLogin.getText();
 
 		ControladorMensagem controlador = new ControladorMensagem(login);
 
-		controlador.enviarMensagem(login, ControladorMensagem.TAG_MENSAGEM_LOGIN);
+		controlador.enviarMensagem(login, ControladorMensagem.TAG_MENSAGEM_LOGIN, null);
 
-		controlador.enviarMensagem("Este é um teste", ControladorMensagem.TAG_MENSAGEM_SERVIDOR);
+		controlador.enviarMensagem("Este é um teste", ControladorMensagem.TAG_MENSAGEM_SERVIDOR, null);
 
 		controlador.receberMensagem(new MensagemRecebida() {
 
