@@ -24,6 +24,8 @@ public class ControladorMensagem {
 	public static final String PROPRIEDADE_ID_REMETENTE = "id_remetente";
 	public static final String PROPRIEDADE_LOGIN_STATUS = "login_invalido";
 
+	public static final String RESERVADO_NICK = "#LOGIN";
+
 	private String idUSuario;
 
 	public ControladorMensagem(String idUSuario) {
@@ -44,7 +46,7 @@ public class ControladorMensagem {
 
 					Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-					Destination destination = session.createQueue(idUsuarioDestino);
+					Destination destination = session.createQueue(RESERVADO_NICK + idUsuarioDestino);
 
 					MessageProducer producer = session.createProducer(destination);
 					producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
@@ -208,7 +210,7 @@ public class ControladorMensagem {
 
 					Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-					Destination destination = session.createQueue(ControladorMensagem.this.idUSuario);
+					Destination destination = session.createQueue(RESERVADO_NICK + ControladorMensagem.this.idUSuario);
 
 					MessageConsumer consumer = session.createConsumer(destination);
 
