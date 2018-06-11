@@ -6,7 +6,11 @@
 package app.cliente.telas;
 
 
+import javax.jms.JMSException;
+
 import app.ControladorMensagem;
+import app.Propriedade;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,21 +46,26 @@ public class LoginController {
 
 	@FXML
 	private void btnVerificarClick(ActionEvent event) {
-
-		boolean verifica = false;
-
 		String nick = this.txt_nick.getText();
 
-		// TODO Validar se existe o nick
-
-		if (verifica == true) {
-			msg_disponivel.setText("Este nick já está em uso.");
-		} else {
-			ControladorMensagem app = new ControladorMensagem(nick);
-			app.enviarMensagemDoServidor(nick, ControladorMensagem.TAG_MENSAGEM_LOGIN);
-
-			showChatDialog(app);
-		}
+		ControladorMensagem app = new ControladorMensagem(nick);
+		app.enviarMensagemDoServidor(nick, ControladorMensagem.TAG_MENSAGEM_LOGIN);
+		
+		app.receberMensagemLogin(m -> {
+			if (m != null) {
+				try {
+					if (m.getBooleanProperty(Propriedade.LOGIN_STATUS.toString())) {
+						Platform.runLater(() -> {
+							showChatDialog(app);	
+						});
+					} else {
+						msg_disponivel.setText("Login inválido, tente alterar o nick.");
+					}
+				} catch (JMSException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	private void showChatDialog(ControladorMensagem app) {
