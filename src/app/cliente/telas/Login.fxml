@@ -15,7 +15,7 @@
 	prefHeight="600.0" prefWidth="480.0"
 	style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8"
 	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="app.cliente.telas.LoginController">
+	fx:controller="app.cliente.telas.LoginDialogController">
 	<children>
 		<Label prefHeight="46.0" prefWidth="480.0"
 			style="-fx-background-color: #4682B4;"

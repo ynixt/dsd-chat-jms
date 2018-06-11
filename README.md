@@ -1,6 +1,8 @@
 Chat JMS
 --------
 
+Um chat simples desenvolvido utilizando o JMS para a disciplina de __desenvolvimento de sistemas distribu√≠dos__.
+
 # Requisitos
 
 - [ActiveMQ](http://activemq.apache.org/)
@@ -9,5 +11,5 @@ Chat JMS
 
 # Outros
 
-Antes de iniciar o projeto, È necess·rio iniciar o _ActiveMQ_. Apenas inserir este comando na pasta raiz do programa:
+Antes de iniciar o projeto, √© necess√°rio iniciar o _ActiveMQ_. Apenas inserir este comando na pasta raiz do programa:
 `bin\activemq start`

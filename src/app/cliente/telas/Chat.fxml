@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="480.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.cliente.telas.ChatController">
+<AnchorPane id="AnchorPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="480.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.cliente.telas.ChatDialogController">
    <children>
       <Label prefHeight="46.0" prefWidth="480.0" style="-fx-background-color: #4682B4;" text="     Chat - Desenvolvimento de Sistemas Distribuídos" textFill="WHITE">
          <font>

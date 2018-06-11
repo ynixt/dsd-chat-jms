@@ -21,7 +21,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 
-public class ChatController {
+public class ChatDialogController {
 
 	@FXML
 	private TextArea txt_msg;
@@ -41,7 +41,7 @@ public class ChatController {
 
 	private List<Mensagem> mensagens;
 
-	public ChatController() {
+	public ChatDialogController() {
 		mensagens = new ArrayList<Mensagem>();
 	}
 

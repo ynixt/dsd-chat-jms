@@ -27,7 +27,7 @@ import javafx.stage.Window;
  *
  * @author Lucas
  */
-public class LoginController {
+public class LoginDialogController {
 
 	@FXML
 	private TextField txt_nick;
@@ -80,7 +80,7 @@ public class LoginController {
 
 			Scene scene = new Scene((AnchorPane) loader.load(), 480, 600);
 
-			ChatController chat = loader.<ChatController>getController();
+			ChatDialogController chat = loader.<ChatDialogController>getController();
 			chat.initData(app);
 
 			stage.setMaxHeight(600);
