@@ -65,6 +65,10 @@ public class ControladorMensagem {
 		}).start();
 	}
 
+	public void enviarMensagemDoServidor(final String texto, final String tag) {
+		enviarMensagemDoServidor(texto, tag, null);
+	}
+
 	/**
 	 * Envia uma mensagem
 	 * 
@@ -72,8 +76,12 @@ public class ControladorMensagem {
 	 *            Texto da mensagem
 	 * @param tag
 	 *            Tag usada para inserir a mensagem na fila
+	 * @param idUsuarioRemetenteOriginal
+	 *            Id do usuário que enviou essa mensagem que o servidor está
+	 *            reenviando
 	 */
-	public void enviarMensagemDoServidor(final String texto, final String tag) {
+	public void enviarMensagemDoServidor(final String texto, final String tag,
+			final String idUsuarioRemetenteOriginal) {
 
 		new Thread(new Runnable() {
 
@@ -95,7 +103,14 @@ public class ControladorMensagem {
 					producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 					Message mensagem = session.createMessage();
-					mensagem.setStringProperty(Propriedade.ID_REMETENTE.toString(), ControladorMensagem.this.idUSuario);
+
+					if (idUsuarioRemetenteOriginal != null) {
+						mensagem.setStringProperty(Propriedade.ID_REMETENTE.toString(), idUsuarioRemetenteOriginal);
+					} else {
+						mensagem.setStringProperty(Propriedade.ID_REMETENTE.toString(),
+								ControladorMensagem.this.idUSuario);
+					}
+
 					mensagem.setStringProperty(Propriedade.TEXTO.toString(), texto);
 
 					producer.send(mensagem);

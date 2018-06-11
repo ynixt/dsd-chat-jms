@@ -76,11 +76,11 @@ public class MainServidor {
 					if (idUsuarioDestino == null) {
 						for (String cliente : usuariosConectados) {
 							if (!cliente.equals(idUsuarioRemetente)) {
-								controladorMensagem.enviarMensagemDoServidor(texto, cliente);
+								controladorMensagem.enviarMensagemDoServidor(texto, cliente, idUsuarioRemetente);
 							}
 						}
 					} else {
-						controladorMensagem.enviarMensagemDoServidor(texto, idUsuarioDestino);
+						controladorMensagem.enviarMensagemDoServidor(texto, idUsuarioDestino, idUsuarioRemetente);
 					}
 				} catch (JMSException e) {
 				}
