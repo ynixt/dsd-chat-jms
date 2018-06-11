@@ -1,5 +1,8 @@
 package app.cliente.telas;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.jms.JMSException;
 
 import app.ControladorMensagem;
@@ -36,38 +39,45 @@ public class ChatController {
 
 	@FXML
 	private void btnEnviarClick(ActionEvent event) {
-		confere();
+		enviarMensagem();
 	}
 
 	@FXML
 	private void buttonPressed(KeyEvent e) {
 		if (e.getCode().equals(KeyCode.ENTER)) {
-			confere();
+			enviarMensagem();
 		}
 	}
 
 	@FXML
-	private void confere() {
-		String msg = this.txt_msg.getText();
+	private void enviarMensagem() {
+		String msg = txt_msg.getText();
 		
-		if (msg.isEmpty()) {
-			this.msg_enviado.setText("Mensagem em branco.");
-		} else {
-
-			String destinatario = this.txt_destinatario.getText();
+		if (isMensagemValida(msg)) {
+			String destinatario = txt_destinatario.getText();
 
 			if (destinatario.isEmpty()) {
 				destinatario = null;
-				this.msg_enviado.setText("Mensagem enviada para todos.");
+				msg_enviado.setText("Mensagem enviada para todos os usuários.");
 			} else {
-				// metodo enviar particular
-				this.msg_enviado.setText("Mensagem enviada para: " + destinatario + "!");
-				
+				msg_enviado.setText("Mensagem enviada para: " + destinatario + ".");
 			}
 			
 			app.enviarMensagem(msg, ControladorMensagem.TAG_MENSAGEM_SERVIDOR, destinatario);
 			txt_msg.setText("");
-		}		
+		} else {
+			msg_enviado.setText("Mensagem inválida.");
+		}
+	}
+	
+	private boolean isMensagemValida(final String mensagem) {
+		if (mensagem.isEmpty()) {
+			return false;
+		}
+		
+		Pattern pattern = Pattern.compile("^("+ControladorMensagem.RESERVADO_NICK+").*");
+		Matcher matcher = pattern.matcher(mensagem);
+		return !matcher.find();
 	}
 
 	@FXML
