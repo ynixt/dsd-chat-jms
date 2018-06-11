@@ -15,7 +15,7 @@
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <Text id="msg_disponivel" fx:id="msg_disponivel" fill="#d34040" layoutX="164.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text id="msg_disponivel" fill="#d34040" layoutX="164.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Label layoutY="61.0" prefHeight="128.0" prefWidth="480.0" style="-fx-background-color: #4682B4;" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="18.0" />
@@ -33,7 +33,7 @@
          </font>
       </Text>
       <TextField id="txt_destinatario" fx:id="txt_destinatario" layoutX="304.0" layoutY="103.0" onKeyPressed="#buttonPressed" promptText="Opcional..." />
-      <Button id="btn_enviar" fx:id="btn_enviar" layoutX="343.0" layoutY="146.0" mnemonicParsing="false" onAction="#btnEnviarClick" onKeyPressed="#buttonPressed" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #3CB371;" text="Enviar" textFill="WHITE" />
+      <Button id="btn_enviar" layoutX="343.0" layoutY="146.0" mnemonicParsing="false" onAction="#btnEnviarClick" onKeyPressed="#buttonPressed" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #3CB371;" text="Enviar" textFill="WHITE" />
       <Label layoutY="263.0" prefHeight="46.0" prefWidth="480.0" style="-fx-background-color: #4682B4;" text="                                Minhas Mensagens" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="18.0" />
@@ -46,6 +46,5 @@
         </columns>
       </TableView>
       <Text id="msg_enviado" fx:id="msg_enviado" fill="#d34040" layoutX="251.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
-      <Button id="btn_att" fx:id="btn_att" layoutX="386.0" layoutY="274.0" mnemonicParsing="false" onAction="#attMsg" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: white;" text="Atualizar" textFill="STEELBLUE" />
    </children>
 </AnchorPane>

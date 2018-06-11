@@ -1,5 +1,7 @@
 package app.cliente.telas;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,7 +9,6 @@ import javax.jms.JMSException;
 
 import app.ControladorMensagem;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -29,13 +30,19 @@ public class ChatController {
 	private TextField txt_destinatario;
 
 	@FXML
-	private TableView<String> tabela;
+	private TableView<Mensagem> tabela;
 	@FXML
-	private TableColumn<String, String> t_nick;
+	private TableColumn<Mensagem, String> t_nick;
 	@FXML
-	private TableColumn<String, String> t_msg;
-	
+	private TableColumn<Mensagem, String> t_msg;
+
 	private ControladorMensagem app;
+
+	private List<Mensagem> mensagens;
+
+	public ChatController() {
+		mensagens = new ArrayList<Mensagem>();
+	}
 
 	@FXML
 	private void btnEnviarClick(ActionEvent event) {
@@ -52,7 +59,7 @@ public class ChatController {
 	@FXML
 	private void enviarMensagem() {
 		String msg = txt_msg.getText();
-		
+
 		if (isMensagemValida(msg)) {
 			String destinatario = txt_destinatario.getText();
 
@@ -62,56 +69,44 @@ public class ChatController {
 			} else {
 				msg_enviado.setText("Mensagem enviada para: " + destinatario + ".");
 			}
-			
+
 			app.enviarMensagem(msg, ControladorMensagem.TAG_MENSAGEM_SERVIDOR, destinatario);
 			txt_msg.setText("");
 		} else {
 			msg_enviado.setText("Mensagem inválida.");
 		}
 	}
-	
+
 	private boolean isMensagemValida(final String mensagem) {
 		if (mensagem.isEmpty()) {
 			return false;
 		}
-		
-		Pattern pattern = Pattern.compile("^("+ControladorMensagem.RESERVADO_NICK+").*");
+
+		Pattern pattern = Pattern.compile("^(" + ControladorMensagem.RESERVADO_NICK + ").*");
 		Matcher matcher = pattern.matcher(mensagem);
 		return !matcher.find();
 	}
 
-	@FXML
-	private void attMsg(ActionEvent event) {
+	private void atualizarMensagens() {
+		t_nick.setCellValueFactory(new PropertyValueFactory<>("autor"));
+		t_msg.setCellValueFactory(new PropertyValueFactory<>("mensagem"));
 
-		t_nick.setCellValueFactory(new PropertyValueFactory<>("nick"));
-		t_msg.setCellValueFactory(new PropertyValueFactory<>("msg"));
-		
 		app.receberMensagem(m -> {
 			try {
-				String mensagem = m.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
-				
-				System.out.println(mensagem);
+				Mensagem mensagem = new Mensagem(
+						m.getStringProperty(ControladorMensagem.PROPRIEDADE_ID_REMETENTE),
+						m.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO));
+
+				mensagens.add(mensagem);
+				tabela.setItems(FXCollections.observableList(mensagens));
 			} catch (JMSException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
-
-		tabela.setItems(listaDeClientes());
-
-	}
-
-	private ObservableList<String> listaDeClientes() {
-
-		// lista
-
-		return FXCollections.observableArrayList(
-
-		// lista
-		);
 	}
 
 	public void initData(ControladorMensagem app) {
 		this.app = app;
+		atualizarMensagens();
 	}
 }
