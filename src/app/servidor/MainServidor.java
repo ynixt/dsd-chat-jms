@@ -48,7 +48,7 @@ public class MainServidor {
 			public void recebida(Message mensagem) {
 				LOGGER.info("Servidor recebeu mensagem de logout");
 				try {
-					String idUsuario = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
+					String idUsuario = mensagem.getStringProperty(Propriedade.TEXTO.toString());
 
 					usuariosConectados.remove(idUsuario);
 				} catch (JMSException e) {
