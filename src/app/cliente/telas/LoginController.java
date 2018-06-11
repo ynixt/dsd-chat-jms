@@ -76,6 +76,10 @@ public class LoginController {
 
 			stage.setMaxHeight(600);
 			stage.setMaxWidth(480);
+			
+			stage.setOnCloseRequest(e -> {
+				app.enviarMensagem(app.getSessionId(), ControladorMensagem.TAG_MENSAGEM_LOGOUT, null);
+			});
 
 			stage.setScene(scene);
 

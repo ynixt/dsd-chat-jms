@@ -77,7 +77,7 @@ public class ControladorMensagem {
 	 * @param tag
 	 *            Tag usada para inserir a mensagem na fila
 	 * @param idUsuarioRemetenteOriginal
-	 *            Id do usuário que enviou essa mensagem que o servidor está
+	 *            Id do usuï¿½rio que enviou essa mensagem que o servidor estï¿½
 	 *            reenviando
 	 */
 	public void enviarMensagemDoServidor(final String texto, final String tag,
@@ -241,5 +241,9 @@ public class ControladorMensagem {
 				}
 			}
 		}).start();
+	}
+	
+	public String getSessionId() {
+		return idUSuario;
 	}
 }

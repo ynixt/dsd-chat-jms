@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class ChatController {
 
@@ -88,6 +89,11 @@ public class ChatController {
 		return !matcher.find();
 	}
 
+	public void initData(ControladorMensagem app) {
+		this.app = app;
+		atualizarMensagens();
+	}
+	
 	private void atualizarMensagens() {
 		t_nick.setCellValueFactory(new PropertyValueFactory<>("autor"));
 		t_msg.setCellValueFactory(new PropertyValueFactory<>("mensagem"));
@@ -105,9 +111,5 @@ public class ChatController {
 			}
 		});
 	}
-
-	public void initData(ControladorMensagem app) {
-		this.app = app;
-		atualizarMensagens();
-	}
+	
 }
