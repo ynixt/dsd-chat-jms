@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import javax.jms.JMSException;
 
 import app.ControladorMensagem;
+import app.Propriedade;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -94,8 +95,8 @@ public class ChatController {
 		app.receberMensagem(m -> {
 			try {
 				Mensagem mensagem = new Mensagem(
-						m.getStringProperty(ControladorMensagem.PROPRIEDADE_ID_REMETENTE),
-						m.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO));
+						m.getStringProperty(Propriedade.ID_REMETENTE.toString()),
+						m.getStringProperty(Propriedade.TEXTO.toString()));
 
 				mensagens.add(mensagem);
 				tabela.setItems(FXCollections.observableList(mensagens));
