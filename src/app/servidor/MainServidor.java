@@ -10,6 +10,7 @@ import javax.jms.Message;
 
 import app.ControladorMensagem;
 import app.MensagemRecebida;
+import app.Propriedade;
 
 public class MainServidor {
 	private static Set<String> usuariosConectados = Collections.synchronizedSet(new HashSet<>());
@@ -27,7 +28,7 @@ public class MainServidor {
 			public void recebida(Message mensagem) {
 				LOGGER.info("Servidor recebeu mensagem de login");
 				try {
-					String idUsuario = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
+					String idUsuario = mensagem.getStringProperty(Propriedade.TEXTO.toString());
 
 					if (usuariosConectados.contains(idUsuario)) {
 						controladorLogin.enviarMensagemLoginStatus(idUsuario, false);
@@ -62,14 +63,13 @@ public class MainServidor {
 			public void recebida(Message mensagem) {
 				LOGGER.info("Servidor recebeu mensagem");
 				try {
-					String texto = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
+					String texto = mensagem.getStringProperty(Propriedade.TEXTO.toString());
 					String idUsuarioDestino = null;
 
-					String idUsuarioRemetente = mensagem
-							.getStringProperty(ControladorMensagem.PROPRIEDADE_ID_REMETENTE);
+					String idUsuarioRemetente = mensagem.getStringProperty(Propriedade.ID_REMETENTE.toString());
 
 					try {
-						idUsuarioDestino = mensagem.getStringProperty(ControladorMensagem.PROPRIEDADE_ID_DESTINO);
+						idUsuarioDestino = mensagem.getStringProperty(Propriedade.ID_DESTINO.toString());
 					} catch (JMSException exception) {
 					}
 

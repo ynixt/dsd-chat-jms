@@ -35,6 +35,8 @@ public class LoginController {
 	private void onKeyPressed(KeyEvent e) {
 		if (e.getCode().equals(KeyCode.ENTER)) {
 			btnVerificarClick(new ActionEvent());
+		} else if (e.getCode().equals(KeyCode.ESCAPE)) {
+			fecharJanela();
 		}
 	}
 
@@ -83,4 +85,9 @@ public class LoginController {
 		}
 	}
 
+	private void fecharJanela() {
+		Window janela = txt_nick.getScene().getWindow();
+		Stage atual = (Stage) janela;
+		atual.close();
+	}
 }

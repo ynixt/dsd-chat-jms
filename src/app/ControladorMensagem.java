@@ -22,11 +22,6 @@ public class ControladorMensagem {
 	public static final String TAG_MENSAGEM_GLOBAL = "global";
 	public static final String TAG_MENSAGEM_LOGOUT = "logout";
 
-	public static final String PROPRIEDADE_TEXTO = "texto";
-	public static final String PROPRIEDADE_ID_DESTINO = "id_destino";
-	public static final String PROPRIEDADE_ID_REMETENTE = "id_remetente";
-	public static final String PROPRIEDADE_LOGIN_STATUS = "login_invalido";
-
 	public static final String RESERVADO_NICK = "#LOGIN";
 
 	private String idUSuario;
@@ -57,7 +52,7 @@ public class ControladorMensagem {
 					producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 					Message mensagem = session.createMessage();
-					mensagem.setBooleanProperty(PROPRIEDADE_LOGIN_STATUS, loginValido);
+					mensagem.setBooleanProperty(Propriedade.LOGIN_STATUS.toString(), loginValido);
 
 					producer.send(mensagem);
 
@@ -100,8 +95,8 @@ public class ControladorMensagem {
 					producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 					Message mensagem = session.createMessage();
-					mensagem.setStringProperty(PROPRIEDADE_ID_REMETENTE, ControladorMensagem.this.idUSuario);
-					mensagem.setStringProperty(PROPRIEDADE_TEXTO, texto);
+					mensagem.setStringProperty(Propriedade.ID_REMETENTE.toString(), ControladorMensagem.this.idUSuario);
+					mensagem.setStringProperty(Propriedade.TEXTO.toString(), texto);
 
 					producer.send(mensagem);
 
@@ -148,11 +143,11 @@ public class ControladorMensagem {
 					producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 					Message mensagem = session.createMessage();
-					mensagem.setStringProperty(PROPRIEDADE_ID_REMETENTE, ControladorMensagem.this.idUSuario);
-					mensagem.setStringProperty(PROPRIEDADE_TEXTO, texto);
+					mensagem.setStringProperty(Propriedade.ID_REMETENTE.toString(), ControladorMensagem.this.idUSuario);
+					mensagem.setStringProperty(Propriedade.TEXTO.toString(), texto);
 
 					if (idUsuarioDestino != null) {
-						mensagem.setStringProperty(PROPRIEDADE_ID_DESTINO, idUsuarioDestino);
+						mensagem.setStringProperty(Propriedade.ID_DESTINO.toString(), idUsuarioDestino);
 					}
 
 					producer.send(mensagem);

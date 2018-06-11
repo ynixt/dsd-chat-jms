@@ -1,10 +1,15 @@
 package app.cliente.telas;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.jms.JMSException;
 
 import app.ControladorMensagem;
+import app.Propriedade;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -26,82 +31,83 @@ public class ChatController {
 	private TextField txt_destinatario;
 
 	@FXML
-	private TableView<String> tabela;
+	private TableView<Mensagem> tabela;
 	@FXML
-	private TableColumn<String, String> t_nick;
+	private TableColumn<Mensagem, String> t_nick;
 	@FXML
-	private TableColumn<String, String> t_msg;
-	
+	private TableColumn<Mensagem, String> t_msg;
+
 	private ControladorMensagem app;
+
+	private List<Mensagem> mensagens;
+
+	public ChatController() {
+		mensagens = new ArrayList<Mensagem>();
+	}
 
 	@FXML
 	private void btnEnviarClick(ActionEvent event) {
-		confere();
+		enviarMensagem();
 	}
 
 	@FXML
 	private void buttonPressed(KeyEvent e) {
 		if (e.getCode().equals(KeyCode.ENTER)) {
-			confere();
+			enviarMensagem();
 		}
 	}
 
 	@FXML
-	private void confere() {
-		String msg = this.txt_msg.getText();
-		
-		if (msg.isEmpty()) {
-			this.msg_enviado.setText("Mensagem em branco.");
-		} else {
+	private void enviarMensagem() {
+		String msg = txt_msg.getText();
 
-			String destinatario = this.txt_destinatario.getText();
+		if (isMensagemValida(msg)) {
+			String destinatario = txt_destinatario.getText();
 
 			if (destinatario.isEmpty()) {
 				destinatario = null;
-				this.msg_enviado.setText("Mensagem enviada para todos.");
+				msg_enviado.setText("Mensagem enviada para todos os usuários.");
 			} else {
-				// metodo enviar particular
-				this.msg_enviado.setText("Mensagem enviada para: " + destinatario + "!");
-				
+				msg_enviado.setText("Mensagem enviada para: " + destinatario + ".");
 			}
-			
+
 			app.enviarMensagem(msg, ControladorMensagem.TAG_MENSAGEM_SERVIDOR, destinatario);
 			txt_msg.setText("");
-		}		
+		} else {
+			msg_enviado.setText("Mensagem inválida.");
+		}
 	}
 
-	@FXML
-	private void attMsg(ActionEvent event) {
+	private boolean isMensagemValida(final String mensagem) {
+		if (mensagem.isEmpty()) {
+			return false;
+		}
 
-		t_nick.setCellValueFactory(new PropertyValueFactory<>("nick"));
-		t_msg.setCellValueFactory(new PropertyValueFactory<>("msg"));
-		
+		Pattern pattern = Pattern.compile("^(" + ControladorMensagem.RESERVADO_NICK + ").*");
+		Matcher matcher = pattern.matcher(mensagem);
+		return !matcher.find();
+	}
+
+	private void atualizarMensagens() {
+		t_nick.setCellValueFactory(new PropertyValueFactory<>("autor"));
+		t_msg.setCellValueFactory(new PropertyValueFactory<>("mensagem"));
+
 		app.receberMensagem(m -> {
 			try {
-				String mensagem = m.getStringProperty(ControladorMensagem.PROPRIEDADE_TEXTO);
-				
-				System.out.println(mensagem);
+				Mensagem mensagem = new Mensagem(
+						m.getStringProperty(Propriedade.ID_REMETENTE.toString()),
+						m.getStringProperty(Propriedade.TEXTO.toString()));
+
+				mensagens.add(mensagem);
+				tabela.setItems(FXCollections.observableList(mensagens));
 			} catch (JMSException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
-
-		tabela.setItems(listaDeClientes());
-
-	}
-
-	private ObservableList<String> listaDeClientes() {
-
-		// lista
-
-		return FXCollections.observableArrayList(
-
-		// lista
-		);
 	}
 
 	public void initData(ControladorMensagem app) {
 		this.app = app;
+		atualizarMensagens();
 	}
 }
