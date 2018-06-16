@@ -72,6 +72,7 @@ public class ChatDialogController {
 			}
 
 			app.enviarMensagem(msg, ControladorMensagem.TAG_MENSAGEM_SERVIDOR, destinatario);
+			adicionarMensagem(msg, "Eu");
 			txt_msg.setText("");
 		} else {
 			msg_enviado.setText("Mensagem inválida.");
@@ -99,16 +100,19 @@ public class ChatDialogController {
 
 		app.receberMensagem(m -> {
 			try {
-				Mensagem mensagem = new Mensagem(
-						m.getStringProperty(Propriedade.ID_REMETENTE.toString()),
-						m.getStringProperty(Propriedade.TEXTO.toString()));
+				String mensagem = m.getStringProperty(Propriedade.TEXTO.toString()),
+						remetente = m.getStringProperty(Propriedade.ID_REMETENTE.toString());
 
-				mensagens.add(mensagem);
-				tabela.setItems(FXCollections.observableList(mensagens));
+				adicionarMensagem(mensagem, remetente);
 			} catch (JMSException e) {
 				e.printStackTrace();
 			}
 		});
+	}
+	
+	private void adicionarMensagem(String mensagem, String remetente) {
+		mensagens.add(new Mensagem(remetente, mensagem));
+		tabela.setItems(FXCollections.observableList(mensagens));
 	}
 	
 }
