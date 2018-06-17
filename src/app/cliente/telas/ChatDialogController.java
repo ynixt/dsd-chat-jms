@@ -59,20 +59,21 @@ public class ChatDialogController {
 
 	@FXML
 	private void enviarMensagem() {
-		String msg = mensagemTextArea.getText();
+		String mensagem = mensagemTextArea.getText();
 
-		if (isMensagemValida(msg)) {
+		if (isMensagemValida(mensagem)) {
 			String destinatario = destinatarioTextField.getText();
 
 			if (destinatario.isEmpty()) {
 				destinatario = null;
 				alertaText.setText("Mensagem enviada para todos os usuários.");
 			} else {
+				mensagem = "@" + destinatario + ": " + mensagem;
 				alertaText.setText("Mensagem enviada para: " + destinatario + ".");
 			}
 
-			app.enviarMensagem(msg, ControladorMensagem.TAG_MENSAGEM_SERVIDOR, destinatario);
-			adicionarMensagem(msg, "Eu");
+			app.enviarMensagem(mensagem, ControladorMensagem.TAG_MENSAGEM_SERVIDOR, destinatario);
+			adicionarMensagem(mensagem, "Eu");
 			mensagemTextArea.setText("");
 		} else {
 			alertaText.setText("Mensagem inválida.");

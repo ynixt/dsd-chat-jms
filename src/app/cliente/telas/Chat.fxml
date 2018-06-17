@@ -26,25 +26,25 @@
             <Font name="Arial" size="14.0" />
          </font>
       </Text>
-      <TextArea id="txt_msg" fx:id="txt_msg" layoutX="24.0" layoutY="103.0" onKeyPressed="#buttonPressed" prefHeight="136.0" prefWidth="200.0" />
+      <TextArea id="txt_msg" fx:id="mensagemTextArea" layoutX="24.0" layoutY="103.0" onKeyPressed="#buttonPressed" prefHeight="136.0" prefWidth="200.0" />
       <Text layoutX="313.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Digite o destinatário :">
          <font>
             <Font name="Arial" size="14.0" />
          </font>
       </Text>
-      <TextField id="txt_destinatario" fx:id="txt_destinatario" layoutX="304.0" layoutY="103.0" onKeyPressed="#buttonPressed" promptText="Opcional..." />
+      <TextField id="txt_destinatario" fx:id="destinatarioTextField" layoutX="304.0" layoutY="103.0" onKeyPressed="#buttonPressed" promptText="Opcional..." />
       <Button id="btn_enviar" layoutX="343.0" layoutY="146.0" mnemonicParsing="false" onAction="#btnEnviarClick" onKeyPressed="#buttonPressed" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #3CB371;" text="Enviar" textFill="WHITE" />
       <Label layoutY="263.0" prefHeight="46.0" prefWidth="480.0" style="-fx-background-color: #4682B4;" text="                                Minhas Mensagens" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <TableView id="tabela" fx:id="tabela" layoutY="309.0" prefHeight="292.0" prefWidth="480.0">
+      <TableView id="tabela" fx:id="mensagensTableView" layoutY="309.0" prefHeight="292.0" prefWidth="480.0">
         <columns>
-          <TableColumn id="t_nick" fx:id="t_nick" prefWidth="120.0" text="Nick" />
-          <TableColumn id="t_msg" fx:id="t_msg" prefWidth="358.0" text="Msg" />
+          <TableColumn id="t_nick" fx:id="apelidoTableColumn" prefWidth="120.0" text="Nick" />
+          <TableColumn id="t_msg" fx:id="mensagemTableColumn" prefWidth="358.0" text="Msg" />
         </columns>
       </TableView>
-      <Text id="msg_enviado" fx:id="msg_enviado" fill="#d34040" layoutX="251.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
+      <Text id="msg_enviado" fx:id="alertaText" fill="#d34040" layoutX="251.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
    </children>
 </AnchorPane>
