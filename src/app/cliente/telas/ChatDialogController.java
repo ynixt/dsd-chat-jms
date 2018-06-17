@@ -24,18 +24,18 @@ import javafx.scene.text.Text;
 public class ChatDialogController {
 
 	@FXML
-	private TextArea txt_msg;
+	private TextArea mensagemTextArea;
 	@FXML
-	private Text msg_enviado;
+	private Text alertaText;
 	@FXML
-	private TextField txt_destinatario;
+	private TextField destinatarioTextField;
 
 	@FXML
-	private TableView<Mensagem> tabela;
+	private TableView<Mensagem> mensagensTableView;
 	@FXML
-	private TableColumn<Mensagem, String> t_nick;
+	private TableColumn<Mensagem, String> apelidoTableColumn;
 	@FXML
-	private TableColumn<Mensagem, String> t_msg;
+	private TableColumn<Mensagem, String> mensagemTableColumn;
 
 	private ControladorMensagem app;
 
@@ -59,23 +59,23 @@ public class ChatDialogController {
 
 	@FXML
 	private void enviarMensagem() {
-		String msg = txt_msg.getText();
+		String msg = mensagemTextArea.getText();
 
 		if (isMensagemValida(msg)) {
-			String destinatario = txt_destinatario.getText();
+			String destinatario = destinatarioTextField.getText();
 
 			if (destinatario.isEmpty()) {
 				destinatario = null;
-				msg_enviado.setText("Mensagem enviada para todos os usuários.");
+				alertaText.setText("Mensagem enviada para todos os usuários.");
 			} else {
-				msg_enviado.setText("Mensagem enviada para: " + destinatario + ".");
+				alertaText.setText("Mensagem enviada para: " + destinatario + ".");
 			}
 
 			app.enviarMensagem(msg, ControladorMensagem.TAG_MENSAGEM_SERVIDOR, destinatario);
 			adicionarMensagem(msg, "Eu");
-			txt_msg.setText("");
+			mensagemTextArea.setText("");
 		} else {
-			msg_enviado.setText("Mensagem inválida.");
+			alertaText.setText("Mensagem inválida.");
 		}
 	}
 
@@ -95,8 +95,8 @@ public class ChatDialogController {
 	}
 	
 	private void atualizarMensagens() {
-		t_nick.setCellValueFactory(new PropertyValueFactory<>("autor"));
-		t_msg.setCellValueFactory(new PropertyValueFactory<>("mensagem"));
+		apelidoTableColumn.setCellValueFactory(new PropertyValueFactory<>("autor"));
+		mensagemTableColumn.setCellValueFactory(new PropertyValueFactory<>("mensagem"));
 
 		app.receberMensagem(m -> {
 			try {
@@ -112,7 +112,7 @@ public class ChatDialogController {
 	
 	private void adicionarMensagem(String mensagem, String remetente) {
 		mensagens.add(new Mensagem(remetente, mensagem));
-		tabela.setItems(FXCollections.observableList(mensagens));
+		mensagensTableView.setItems(FXCollections.observableList(mensagens));
 	}
 	
 }
